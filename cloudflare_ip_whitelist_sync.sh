@@ -1,15 +1,15 @@
 #!/bin/bash
 
-################################################################################
-#                               Cloudflare IP Sync                             #
-#                                                                              #
-# Author: maooooozaizi                                                         #
-# GitHub: https://github.com/yourusername/your-repository                      #
-# Version: 1.0                                                                 #
-#                                                                              #
-# Description:                                                                 #
-# This script syncs Cloudflare IP addresses and updates the Nginx configuration.#
-################################################################################
+##########################################################################################################
+#                               Cloudflare IP Sync                                                       #
+#                                                                                                        #
+# Author: maooooozaizi                                                                                   #
+# GitHub: https://github.com/maozaizi/shell-script-toolkit/blob/dev/cloudflare_ip_whitelist_sync.sh      #
+# Version: 1.0                                                                                           #
+#                                                                                                        #
+# Description:                                                                                           #
+# This script syncs Cloudflare IP addresses and updates the Nginx configuration.                         #
+##########################################################################################################
 
 # Configuration
 CLOUDFLARE_FILE_PATH="/etc/nginx/cloudflare"
