@@ -10,7 +10,7 @@ fi
 mariadb_version="10.6"
 nginx_key_url="https://nginx.org/keys/nginx_signing.key"
 mariadb_key_url="https://mariadb.org/mariadb_release_signing_key.pgp"
-mariadb_repo_url="https://mirrors.tuna.tsinghua.edu.cn/mariadb/repo/${mariadb_version}/ubuntu"
+mariadb_repo_url="https://mirrors.gigenet.com/mariadb/repo/${mariadb_version}/ubuntu"
 nginx_archive_keyring="/usr/share/keyrings/nginx-archive-keyring.gpg"
 mariadb_keyring="/usr/share/keyrings/mariadb-keyring.gpg"
 
