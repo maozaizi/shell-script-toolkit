@@ -39,7 +39,7 @@ sed -i "s/max_execution_time =.*/max_execution_time = 3600/" /etc/php/"$php_vers
 sed -i "s/max_input_time =.*/max_input_time = 3600/" /etc/php/"$php_version"/cli/php.ini
 sed -i "s/post_max_size =.*/post_max_size = 10240M/" /etc/php/"$php_version"/cli/php.ini
 sed -i "s/upload_max_filesize =.*/upload_max_filesize = 10240M/" /etc/php/"$php_version"/cli/php.ini
-sed -i "s/;date.timezone.*/date.timezone = Europe\/\Berlin/" /etc/php/"$php_version"/cli/php.ini
+sed -i "s/;date.timezone.*/date.timezone = Asia\/\Shanghai/" /etc/php/"$php_version"/cli/php.ini
 sed -i "s/;cgi.fix_pathinfo.*/cgi.fix_pathinfo=0/" /etc/php/"$php_version"/cli/php.ini
 
 sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/"$php_version"/fpm/php.ini
@@ -48,7 +48,7 @@ sed -i "s/max_execution_time =.*/max_execution_time = 3600/" /etc/php/"$php_vers
 sed -i "s/max_input_time =.*/max_input_time = 3600/" /etc/php/"$php_version"/fpm/php.ini
 sed -i "s/post_max_size =.*/post_max_size = 10G/" /etc/php/"$php_version"/fpm/php.ini
 sed -i "s/upload_max_filesize =.*/upload_max_filesize = 10G/" /etc/php/"$php_version"/fpm/php.ini
-sed -i "s/;date.timezone.*/date.timezone = Europe\/\Berlin/" /etc/php/"$php_version"/fpm/php.ini
+sed -i "s/;date.timezone.*/date.timezone = Asia\/\Shanghai/" /etc/php/"$php_version"/fpm/php.ini
 sed -i "s/;cgi.fix_pathinfo.*/cgi.fix_pathinfo=0/" /etc/php/"$php_version"/fpm/php.ini
 sed -i "s/;session.cookie_secure.*/session.cookie_secure = True/" /etc/php/"$php_version"/fpm/php.ini
 sed -i "s/;opcache.enable=.*/opcache.enable=1/" /etc/php/"$php_version"/fpm/php.ini
