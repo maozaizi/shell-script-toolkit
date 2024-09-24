@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 检查是否具有管理员权限
+# 检查是否具有管理员权限 2024-09-24
 if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be run as root. Aborting."
     exit 1
