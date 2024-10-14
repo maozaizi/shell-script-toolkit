@@ -1,53 +1,56 @@
 #!/bin/bash
 
-# 检查是否为 root 用户
+# 检查是否以 root 权限运行
 if [ "$(id -u)" -ne 0 ]; then
-    echo "该脚本必须以 root 用户身份运行"
+    echo "该脚本必须以 root 权限运行" >&2
     exit 1
 fi
 
-# 检查是否提供了 PHP 版本号
-if [ -z "$1" ]; then
-    echo "用法: $0 <php_version>"
+# 获取系统中安装的 PHP 版本
+installed_php_version=$(php -v | head -n 1 | cut -d " " -f 2 | cut -d "." -f 1,2)
+
+# 提示用户输入 PHP 版本号
+echo "检测到系统当前 PHP 版本为: $installed_php_version"
+read -p "请输入要备份的 PHP 版本号（例如: 8.3 或 $installed_php_version）: " user_php_version
+
+# 校验用户输入的 PHP 版本号是否为空
+if [ -z "$user_php_version" ]; then
+    echo "错误: 版本号不能为空" >&2
     exit 1
 fi
 
-php_version="$1"
+# 检查用户输入的 PHP 版本是否存在
+if ! [ -d "/etc/php/$user_php_version" ]; then
+    echo "错误: PHP 版本 $user_php_version 未安装或目录不存在" >&2
+    exit 1
+fi
 
-# 备份文件
-cp "/etc/php/$php_version/fpm/pool.d/www.conf" "/etc/php/$php_version/fpm/pool.d/www.conf.bak"
-cp "/etc/php/$php_version/fpm/php-fpm.conf" "/etc/php/$php_version/fpm/php-fpm.conf.bak"
-cp "/etc/php/$php_version/cli/php.ini" "/etc/php/$php_version/cli/php.ini.bak"
-cp "/etc/php/$php_version/fpm/php.ini" "/etc/php/$php_version/fpm/php.ini.bak"
-cp "/etc/php/$php_version/mods-available/apcu.ini" "/etc/php/$php_version/mods-available/apcu.ini.bak"
-cp "/etc/php/$php_version/mods-available/opcache.ini" "/etc/php/$php_version/mods-available/opcache.ini.bak"
-cp "/etc/ImageMagick-6/policy.xml" "/etc/ImageMagick-6/policy.xml.bak"
+# 开始备份 PHP 配置文件
+echo "正在备份 PHP 版本 $user_php_version 的配置文件..."
 
-# 重启 php-fpm 服务
-systemctl restart "php$php_version-fpm.service"
+backup_files=(
+    "/etc/php/$user_php_version/fpm/pool.d/www.conf"
+    "/etc/php/$user_php_version/fpm/php-fpm.conf"
+    "/etc/php/$user_php_version/cli/php.ini"
+    "/etc/php/$user_php_version/fpm/php.ini"
+    "/etc/php/$user_php_version/mods-available/apcu.ini"
+    "/etc/php/$user_php_version/mods-available/opcache.ini"
+    "/etc/ImageMagick-6/policy.xml"
+)
 
-echo "备份和 PHP 版本 $php_version 配置已完成"
+# 遍历文件列表并创建备份
+for file in "${backup_files[@]}"; do
+    if [ -f "$file" ]; then
+        cp "$file" "$file.bak"
+        echo "备份 $file 成功"
+    else
+        echo "警告: $file 不存在，跳过备份"
+    fi
+done
 
-# 检查备份文件是否存在
-check_backup_files() {
-    local files=(
-        "/etc/php/$php_version/fpm/pool.d/www.conf.bak"
-        "/etc/php/$php_version/fpm/php-fpm.conf.bak"
-        "/etc/php/$php_version/cli/php.ini.bak"
-        "/etc/php/$php_version/fpm/php.ini.bak"
-        "/etc/php/$php_version/mods-available/apcu.ini.bak"
-        "/etc/php/$php_version/mods-available/opcache.ini.bak"
-        "/etc/ImageMagick-6/policy.xml.bak"
-    )
+# 重启 PHP-FPM 服务
+systemctl restart "php$user_php_version-fpm.service"
+echo "PHP $user_php_version 的 PHP-FPM 服务已重启"
 
-    for file in "${files[@]}"; do
-        if [ -f "$file" ]; then
-            echo "$file 已经创建"
-        else
-            echo "$file 未找到"
-        fi
-    done
-}
+echo "备份完成并重启服务。"
 
-# 执行函数
-check_backup_files
