@@ -2,7 +2,7 @@
 ################################
 # Bitte die PHP-Version angeben!
 ################################
-phpv="8.2"
+phpv="8.3"
 ################################
 AvailableRAM=$(awk '/MemAvailable/ {printf "%d", $2/1024}' /proc/meminfo)
 AverageFPM=$(ps --no-headers -o 'rss,cmd' -C php-fpm$phpv | awk '{ sum+=$1 } END { printf ("%d\n", sum/NR/1024,"M") }')
@@ -12,7 +12,7 @@ PMinSS=$((PMaxSS/2))
 PStartS=$(((PMaxSS+PMinSS)/2))
 clear
 echo ""
-echo "Available Memory (RAM) =      "$AvailableRAM "MB"
+echo "Verfügbarer Speicher (RAM) =              "$AvailableRAM "MB"
 echo "Speicherverbrauch FPM-Prozesse =  "$AverageFPM "MB"
 echo ""
 echo "pm.max_children =      "$FPMS

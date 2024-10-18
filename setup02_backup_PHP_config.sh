@@ -53,4 +53,3 @@ systemctl restart "php$user_php_version-fpm.service"
 echo "PHP $user_php_version 的 PHP-FPM 服务已重启"
 
 echo "备份完成并重启服务。"
-
