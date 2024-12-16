@@ -15,7 +15,7 @@ cleanup_cache() {
     apt-get autoclean
 }
 
-# 执行清理操作
+# 执行清理操作啦
 echo ">> 开始系统清理..."
 cleanup_packages
 cleanup_cache
